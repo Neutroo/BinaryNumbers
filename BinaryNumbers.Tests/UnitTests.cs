@@ -977,7 +977,7 @@ namespace BinaryNumbers.Tests
         [Test]
         public void AdditionalCode_OperatorExplicit_AdditionalToSbyte_Returns81()
         {
-            AdditionalCode additional = new("0.1010001"); // 81
+            AdditionalCode additional = new("0.1010001");   // 81
 
             sbyte expected = 81;
             sbyte actual = (sbyte)additional;
