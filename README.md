@@ -2,14 +2,13 @@
 Library for working with machine arithmetic on C# .NET Core.
 
 ## Getting Started
-These instructions will get you a copy of the project up or install dll for development.
+These instructions will get you a copy of the project or install dll for development.
 
 ### Installing
-For using this library in your project just downlad the [dll](https://github.com/neutroo/BinaryNumbers/releases/download/1.0.0/BinaryNumbers.zip).\
-If you dont know how to add dll in your project - check [this](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2022) documentation.
+For using this library in your project just download the [dll](https://github.com/neutroo/BinaryNumbers/releases/download/1.0.0/BinaryNumbers.zip).\
+If you don't know how to add dll in your project - check [this](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2022) documentation.
 
-For getting a copy of the project [click](https://github.com/neutroo/BinaryNumbers/archive/refs/tags/1.0.0.zip)
-
+For getting a copy of the project [click here](https://github.com/neutroo/BinaryNumbers/archive/refs/tags/1.0.0.zip).
 
 ### Example Use
 ```c#
@@ -35,7 +34,7 @@ namespace MyApplication
     }
 }
 ```
-More examples and tests you can see via link: [BinaryNumbers.Tests](https://github.com/neutroo/BinaryNumbers/blob/master/BinaryNumbers.Tests/UnitTests.cs)
+More examples and tests are available via link: [BinaryNumbers.Tests](https://github.com/neutroo/BinaryNumbers/blob/master/BinaryNumbers.Tests/UnitTests.cs)
 
 ## Built With
 * [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) - The framework used
