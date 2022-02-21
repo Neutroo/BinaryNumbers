@@ -11,7 +11,7 @@ If you dont know how to add dll in your project - check [this](https://docs.micr
 For getting a copy of the project [click](https://github.com/neutroo/BinaryNumbers/archive/refs/tags/1.0.0.zip)
 
 
-### Example use
+### Example Use
 ```c#
 using BinaryNumbers;        // Include our library
 
@@ -37,7 +37,7 @@ namespace MyApplication
 ```
 More examples and tests you can see via link: [BinaryNumbers.Tests](https://github.com/neutroo/BinaryNumbers/blob/master/BinaryNumbers.Tests/UnitTests.cs)
 
-## Built with
+## Built With
 * [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) - The framework used
 
 ## License 
