@@ -8,7 +8,7 @@ These instructions will get you a copy of the project or install dll for develop
 For using this library in your project just download the [dll](https://github.com/neutroo/BinaryNumbers/releases/download/1.0.0/BinaryNumbers.zip).\
 If you don't know how to add dll in your project - check [this](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2022) documentation.
 
-For getting a copy of the project [click here](https://github.com/neutroo/BinaryNumbers/archive/refs/tags/1.0.0.zip).
+For getting a copy of the project [click here](https://github.com/Neutroo/BinaryNumbers/archive/refs/heads/master.zip).
 
 ### Example Use
 ```c#
