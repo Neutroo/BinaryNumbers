@@ -39,5 +39,8 @@ More examples and tests are available via link: [BinaryNumbers.Tests](https://gi
 ## Built With
 * [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) - The framework used
 
+## Authors
+* Rodion Kushnarenko - [Neutro](https://github.com/Neutroo)
+
 ## License 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/neutroo/BinaryNumbers/blob/master/LICENSE) file for details.
