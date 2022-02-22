@@ -40,4 +40,4 @@ More examples and tests are available via link: [BinaryNumbers.Tests](https://gi
 * [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) - The framework used
 
 ## License 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/neutroo/BinaryNumbers/blob/1.0.0/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/neutroo/BinaryNumbers/blob/master/LICENSE) file for details.
