@@ -5,18 +5,18 @@ namespace BinaryNumbers
     public abstract class BinaryCode : ICloneable
     {
         protected bool sign;
-        protected bool[] number;
+        protected bool[] module;
 
         public bool Sign { get { return sign; } }
-        public bool[] Number { get { return number;} }
+        public bool[] Module { get { return module;} }
 
-        public BinaryCode(bool sign, bool[] number)
+        public BinaryCode(bool sign, bool[] module)
         {
-            if (number.Length != 7)
-                throw new ArgumentException("length is required be seven", paramName: number.ToString());
+            if (module.Length != 7)
+                throw new ArgumentException("length is required be seven", paramName: module.ToString());
 
             this.sign = sign;
-            this.number = number;
+            this.module = module;
         }
 
         public BinaryCode(string binary)
@@ -26,13 +26,13 @@ namespace BinaryNumbers
                 string pattern = "[0,1][.][0,1][0,1][0,1][0,1][0,1][0,1][0,1]";
                 if (new Regex(pattern).IsMatch(binary))
                 {
-                    string[] signAndNumber = binary.Split('.');                
+                    string[] signAndModule = binary.Split('.');                
 
-                    sign = Convert.ToBoolean(Convert.ToInt32(signAndNumber[0]));
-                    number = new bool[7];
+                    sign = Convert.ToBoolean(Convert.ToInt32(signAndModule[0]));
+                    module = new bool[7];
 
-                    for (int i = 0; i < signAndNumber[1].Length; ++i)
-                        number[i] = Convert.ToBoolean((int)char.GetNumericValue(signAndNumber[1][i]));
+                    for (int i = 0; i < signAndModule[1].Length; ++i)
+                        module[i] = Convert.ToBoolean((int)char.GetNumericValue(signAndModule[1][i]));
                 }
                 else
                     throw new ArgumentException("does not match pattern", paramName: binary);            
@@ -45,7 +45,7 @@ namespace BinaryNumbers
         {
             string binary = string.Empty;
 
-            foreach (bool bit in number)
+            foreach (bool bit in module)
                 binary += Convert.ToInt32(bit);
 
             return $"{Convert.ToInt32(sign)}.{binary}";

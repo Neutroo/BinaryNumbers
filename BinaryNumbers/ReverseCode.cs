@@ -4,16 +4,16 @@
     {
         public ReverseCode(string binary) : base(binary) {}
 
-        public ReverseCode(bool sign, bool[] number) : base(sign, number) {}
+        public ReverseCode(bool sign, bool[] module) : base(sign, module) {}
 
         public static ReverseCode operator +(ReverseCode a, ReverseCode b)
         {
             ForwardCode sum = (ForwardCode)a + (ForwardCode)b;
 
             if (!sum.Sign)
-                return new ReverseCode(sum.Sign, sum.Number);
+                return new ReverseCode(sum.Sign, sum.Module);
 
-            return new ReverseCode(sum.Sign, (!sum).Number);
+            return new ReverseCode(sum.Sign, (!sum).Module);
         }
 
         public static ReverseCode operator +(ReverseCode a, sbyte b)    
@@ -21,9 +21,9 @@
             ForwardCode sum = (ForwardCode)a + b;
 
             if (!sum.Sign)
-                return new ReverseCode(sum.Sign, sum.Number);
+                return new ReverseCode(sum.Sign, sum.Module);
 
-            return new ReverseCode(sum.Sign, (!sum).Number);
+            return new ReverseCode(sum.Sign, (!sum).Module);
         }
 
         public static ReverseCode operator +(sbyte a, ReverseCode b)
@@ -31,9 +31,9 @@
             ForwardCode sum = a + (ForwardCode)b;
 
             if (!sum.Sign)
-                return new ReverseCode(sum.Sign, sum.Number);
+                return new ReverseCode(sum.Sign, sum.Module);
 
-            return new ReverseCode(sum.Sign, (!sum).Number);
+            return new ReverseCode(sum.Sign, (!sum).Module);
         }
 
         public static ReverseCode operator -(ReverseCode a, ReverseCode b)
@@ -41,9 +41,9 @@
             ForwardCode difference = (ForwardCode)a - (ForwardCode)b;
 
             if (!difference.Sign)
-                return new ReverseCode(difference.Sign, difference.Number);
+                return new ReverseCode(difference.Sign, difference.Module);
 
-            return new ReverseCode(difference.Sign, (!difference).Number);
+            return new ReverseCode(difference.Sign, (!difference).Module);
         }
 
         public static ReverseCode operator -(ReverseCode a, sbyte b)
@@ -51,9 +51,9 @@
             ForwardCode difference = (ForwardCode)a - b;
 
             if (!difference.Sign)
-                return new ReverseCode(difference.Sign, difference.Number);
+                return new ReverseCode(difference.Sign, difference.Module);
 
-            return new ReverseCode(difference.Sign, (!difference).Number);
+            return new ReverseCode(difference.Sign, (!difference).Module);
         }
 
         public static ReverseCode operator -(sbyte a, ReverseCode b)
@@ -61,9 +61,9 @@
             ForwardCode difference = a - (ForwardCode)b;
 
             if (!difference.Sign)
-                return new ReverseCode(difference.Sign, difference.Number);
+                return new ReverseCode(difference.Sign, difference.Module);
 
-            return new ReverseCode(difference.Sign, (!difference).Number);
+            return new ReverseCode(difference.Sign, (!difference).Module);
         }
 
         public static ReverseCode operator *(ReverseCode a, ReverseCode b)
@@ -71,9 +71,9 @@
             ForwardCode product = (ForwardCode)a * (ForwardCode)b;
 
             if (!product.Sign)
-                return new ReverseCode(product.Sign, product.Number);
+                return new ReverseCode(product.Sign, product.Module);
 
-            return new ReverseCode(product.Sign, (!product).Number);
+            return new ReverseCode(product.Sign, (!product).Module);
         }
 
         public static ReverseCode operator /(ReverseCode a, ReverseCode b)
@@ -81,9 +81,9 @@
             ForwardCode quotient = (ForwardCode)a / (ForwardCode)b;
 
             if (!quotient.Sign)
-                return new ReverseCode(quotient.Sign, quotient.Number);
+                return new ReverseCode(quotient.Sign, quotient.Module);
 
-            return new ReverseCode(quotient.Sign, (!quotient).Number);
+            return new ReverseCode(quotient.Sign, (!quotient).Module);
         }
 
         public static ReverseCode operator <<(ReverseCode a, int move)
@@ -91,11 +91,11 @@
             bool[] result = new bool[7];
 
             int i;
-            for (i = 0; i < a.Number.Length - move; ++i)
-                result[i] = a.Number[i + move];
+            for (i = 0; i < a.Module.Length - move; ++i)
+                result[i] = a.Module[i + move];
 
             if (a.Sign)
-                for (_ = i; i < a.Number.Length; ++i)
+                for (_ = i; i < a.Module.Length; ++i)
                     result[i] = true;
 
             return new ReverseCode(a.Sign, result);
@@ -106,8 +106,8 @@
             bool[] result = new bool[7];
 
             int i;
-            for (i = move; i < a.Number.Length; ++i)
-                result[i] = a.Number[i - move];
+            for (i = move; i < a.Module.Length; ++i)
+                result[i] = a.Module[i - move];
 
             if (a.Sign)
                 for (i = 0; i < move; ++i)
@@ -121,8 +121,8 @@
             if (a.Sign != b.Sign)
                 return false;
 
-            for (int i = 0; i < a.number.Length; ++i)
-                if (a.number[i] != b.number[i])
+            for (int i = 0; i < a.module.Length; ++i)
+                if (a.module[i] != b.module[i])
                     return false;
 
             return true;
@@ -133,9 +133,9 @@
             if (a.Sign != b.Sign)
                 return true;
 
-            for (int i = 0; i < a.number.Length; ++i)
+            for (int i = 0; i < a.module.Length; ++i)
             {
-                if (a.number[i] == b.number[i])
+                if (a.module[i] == b.module[i])
                     continue;
                 else
                     return true;
@@ -158,8 +158,8 @@
         public static ReverseCode operator !(ReverseCode a)
         {
             ReverseCode clone = (ReverseCode)a.Clone();
-            for (int i = 0; i < clone.number.Length; ++i)
-                clone.number[i] = !clone.number[i];
+            for (int i = 0; i < clone.module.Length; ++i)
+                clone.module[i] = !clone.module[i];
 
             return clone;
         }
@@ -169,26 +169,26 @@
         public static ReverseCode operator -(ReverseCode a)
         {
             ReverseCode clone = (ReverseCode)a.Clone();
-            return new ReverseCode(!clone.sign, clone.number);
+            return new ReverseCode(!clone.sign, clone.module);
         }
 
         public static explicit operator ReverseCode(ForwardCode forward)
         {
             if (!forward.Sign)
-                return new ReverseCode(forward.Sign, forward.Number);
+                return new ReverseCode(forward.Sign, forward.Module);
 
             ForwardCode clone = (ForwardCode)forward.Clone();
 
-            return new ReverseCode(clone.Sign, (!clone).Number);
+            return new ReverseCode(clone.Sign, (!clone).Module);
         }
 
         public static explicit operator ReverseCode(AdditionalCode additional)
         {
             if (!additional.Sign)
-                return new ReverseCode(additional.Sign, additional.Number);
+                return new ReverseCode(additional.Sign, additional.Module);
 
             bool[] result = new bool[7];
-            additional.Number.Reverse().ToArray().CopyTo(result, 0);
+            additional.Module.Reverse().ToArray().CopyTo(result, 0);
  
             for (int i = 0; i < result.Length; ++i)
             {
@@ -219,10 +219,10 @@
         public override object Clone()
         {
             bool sign = this.sign;
-            bool[] number = new bool[7];
-            this.number.CopyTo(number, 0);
+            bool[] module = new bool[7];
+            this.module.CopyTo(module, 0);
 
-            return new ReverseCode(sign, number);
+            return new ReverseCode(sign, module);
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         public ForwardCode(string binary) : base(binary) {}
 
-        public ForwardCode(bool sign, bool[] number) : base(sign, number) {}
+        public ForwardCode(bool sign, bool[] module) : base(sign, module) {}
 
         public static ForwardCode operator +(ForwardCode a, ForwardCode b)
         {
@@ -15,7 +15,7 @@
             bool[] reverseA = new bool[7];
             bool[] reverseB = new bool[7];
 
-            a.Number.Reverse().ToArray().CopyTo(reverseA, 0);
+            a.Module.Reverse().ToArray().CopyTo(reverseA, 0);
 
             if (a == new ForwardCode("1.0000000"))      // If a equals negative 0           
                 a.sign = false;
@@ -37,7 +37,7 @@
                 }
             }
 
-            b.number.Reverse().ToArray().CopyTo(reverseB, 0);
+            b.module.Reverse().ToArray().CopyTo(reverseB, 0);
 
             if (b == new ForwardCode("1.0000000"))      // If b equals negative 0           
                 b.sign = false;
@@ -161,25 +161,25 @@
 
         public static ForwardCode operator *(ForwardCode a, ForwardCode b)
         {
-            int lenghtB = 7;
+            int lengthB = 7;
 
-            // Find lenght
-            for (int i = 0; i < b.number.Length; ++i)   
+            // Find length
+            for (int i = 0; i < b.module.Length; ++i)   
             {
-                if (b.number[i])
+                if (b.module[i])
                     break;
                 else
-                    --lenghtB;
+                    --lengthB;
             }
 
-            if (lenghtB == 0)           // If lenght is 0 then the product of number is 0            
+            if (lengthB == 0)           // If length is 0 then the product of number is 0            
                 return new ForwardCode(false, new bool[7]);        
             
-            ForwardCode[] codes = new ForwardCode[lenghtB];
+            ForwardCode[] codes = new ForwardCode[lengthB];
 
-            bool[] reverseB = b.number.Reverse().ToArray();
+            bool[] reverseB = b.module.Reverse().ToArray();
 
-            for (int i = 0; i < lenghtB; ++i)
+            for (int i = 0; i < lengthB; ++i)
             {
                 ForwardCode clone = (ForwardCode)a.Clone();
                 if (reverseB[i])                
@@ -195,38 +195,38 @@
 
             bool sign = (a.sign == b.sign) ? false : true;
 
-            return new ForwardCode(sign, sum.Number);
+            return new ForwardCode(sign, sum.Module);
         }
 
         public static ForwardCode operator /(ForwardCode a, ForwardCode b)
         {
-            int lenghtA = 7, lenghtB = 7;
+            int lengthA = 7, lengthB = 7;
 
-            foreach (bool bit in a.Number)         
+            foreach (bool bit in a.Module)         
                 if (bit)
                     break;
                 else
-                    --lenghtA;           
+                    --lengthA;           
 
-            foreach (bool bit in b.Number)        
+            foreach (bool bit in b.Module)        
                 if (bit)
                     break;
                 else
-                    --lenghtB;       
+                    --lengthB;       
 
-            if (lenghtA < lenghtB)      // If the dividend is less than the divisor 
+            if (lengthA < lengthB)      // If the dividend is less than the divisor 
                 return new ForwardCode(false, new bool[7]);     // return 0
 
-            int difference = lenghtA - lenghtB;
+            int difference = lengthA - lengthB;
 
             bool[] binaryA = new bool[16];
             bool[] binaryB = new bool[16];
 
             // We need to increase our binary numbers
-            for (int i = 0; i < a.Number.Length; ++i)
+            for (int i = 0; i < a.Module.Length; ++i)
             {
-                binaryA[i + 9] = a.Number[i];
-                binaryB[i + 9] = b.Number[i];
+                binaryA[i + 9] = a.Module[i];
+                binaryB[i + 9] = b.Module[i];
             }
 
             bool[] shiftingB = new bool[16];
@@ -317,8 +317,8 @@
         {
             bool[] result = new bool[7];
 
-            for (int i = 0; i < a.number.Length - move; ++i)           
-                result[i] = a.number[i + move];
+            for (int i = 0; i < a.module.Length - move; ++i)           
+                result[i] = a.module[i + move];
 
             return new ForwardCode(a.sign, result);
         }
@@ -327,8 +327,8 @@
         {
             bool[] result = new bool[7];
 
-            for (int i = move; i < a.number.Length; ++i)
-                result[i] = a.number[i - move];
+            for (int i = move; i < a.module.Length; ++i)
+                result[i] = a.module[i - move];
          
             return new ForwardCode(a.sign, result);
         }
@@ -338,8 +338,8 @@
             if (a.Sign != b.Sign)
                 return false;
 
-            for (int i = 0; i < a.number.Length; ++i)            
-                if (a.number[i] != b.number[i])
+            for (int i = 0; i < a.module.Length; ++i)            
+                if (a.module[i] != b.module[i])
                     return false;          
             
             return true;
@@ -350,8 +350,8 @@
             if (a.Sign != b.Sign)
                 return true;
 
-            for (int i = 0; i < a.number.Length; ++i)          
-                if (a.number[i] == b.number[i])
+            for (int i = 0; i < a.module.Length; ++i)          
+                if (a.module[i] == b.module[i])
                     continue;
                 else
                     return true;
@@ -367,23 +367,23 @@
                 return true;
 
             if (!a.Sign && !b.Sign)         
-                for (int i = 0; i < a.number.Length; ++i)
+                for (int i = 0; i < a.module.Length; ++i)
                 {
-                    if (a.number[i] == b.number[i])
+                    if (a.module[i] == b.module[i])
                         continue;
-                    else if (a.number[i])
+                    else if (a.module[i])
                         return true;
-                    else if (b.number[i])
+                    else if (b.module[i])
                         return false;
                 }
             else
-                for (int i = 0; i < b.number.Length; ++i)
+                for (int i = 0; i < b.module.Length; ++i)
                 {
-                    if (a.number[i] == b.number[i])
+                    if (a.module[i] == b.module[i])
                         continue;
-                    else if (b.number[i])
+                    else if (b.module[i])
                         return true;
-                    else if (a.number[i])
+                    else if (a.module[i])
                         return false;
                 }
 
@@ -398,23 +398,23 @@
                 return false;
 
             if (!a.Sign && !b.Sign)
-                for (int i = 0; i < b.number.Length; ++i)
+                for (int i = 0; i < b.module.Length; ++i)
                 {
-                    if (a.number[i] == b.number[i])
+                    if (a.module[i] == b.module[i])
                         continue;
-                    else if (b.number[i])
+                    else if (b.module[i])
                         return true;
-                    else if (a.number[i])
+                    else if (a.module[i])
                         return false;
                 }
             else
-                for (int i = 0; i < a.number.Length; ++i)
+                for (int i = 0; i < a.module.Length; ++i)
                 {
-                    if (a.number[i] == b.number[i])
+                    if (a.module[i] == b.module[i])
                         continue;
-                    else if (a.number[i])
+                    else if (a.module[i])
                         return true;
-                    else if (b.number[i])
+                    else if (b.module[i])
                         return false;
                 }
 
@@ -429,23 +429,23 @@
                 return true;
 
             if (!a.Sign && !b.Sign)
-                for (int i = 0; i < a.number.Length; ++i)
+                for (int i = 0; i < a.module.Length; ++i)
                 {
-                    if (a.number[i] == b.number[i])
+                    if (a.module[i] == b.module[i])
                         continue;
-                    else if (a.number[i])
+                    else if (a.module[i])
                         return true;
-                    else if (b.number[i])
+                    else if (b.module[i])
                         return false;
                 }
             else
-                for (int i = 0; i < b.number.Length; ++i)
+                for (int i = 0; i < b.module.Length; ++i)
                 {
-                    if (a.number[i] == b.number[i])
+                    if (a.module[i] == b.module[i])
                         continue;
-                    else if (b.number[i])
+                    else if (b.module[i])
                         return true;
-                    else if (a.number[i])
+                    else if (a.module[i])
                         return false;
                 }
 
@@ -460,23 +460,23 @@
                 return false;
 
             if (!a.Sign && !b.Sign)
-                for (int i = 0; i < b.number.Length; ++i)
+                for (int i = 0; i < b.module.Length; ++i)
                 {
-                    if (a.number[i] == b.number[i])
+                    if (a.module[i] == b.module[i])
                         continue;
-                    else if (b.number[i])
+                    else if (b.module[i])
                         return true;
-                    else if (a.number[i])
+                    else if (a.module[i])
                         return false;
                 }
             else
-                for (int i = 0; i < a.number.Length; ++i)
+                for (int i = 0; i < a.module.Length; ++i)
                 {
-                    if (a.number[i] == b.number[i])
+                    if (a.module[i] == b.module[i])
                         continue;
-                    else if (a.number[i])
+                    else if (a.module[i])
                         return true;
-                    else if (b.number[i])
+                    else if (b.module[i])
                         return false;
                 }
 
@@ -490,8 +490,8 @@
         public static ForwardCode operator !(ForwardCode a)
         {
             ForwardCode clone = (ForwardCode)a.Clone();
-            for (int i = 0; i < clone.number.Length; ++i)
-                clone.number[i] = !clone.number[i];
+            for (int i = 0; i < clone.module.Length; ++i)
+                clone.module[i] = !clone.module[i];
 
             return clone;
         }
@@ -501,26 +501,26 @@
         public static ForwardCode operator -(ForwardCode a)
         {
             ForwardCode clone = (ForwardCode)a.Clone();
-            return new ForwardCode(!clone.sign, clone.number);
+            return new ForwardCode(!clone.sign, clone.module);
         }
 
         public static explicit operator ForwardCode(ReverseCode reverse)
         {
             if (!reverse.Sign)
-                return new ForwardCode(reverse.Sign, reverse.Number);
+                return new ForwardCode(reverse.Sign, reverse.Module);
 
             ReverseCode clone = (ReverseCode)reverse.Clone();
 
-            return new ForwardCode(clone.Sign, (!clone).Number);
+            return new ForwardCode(clone.Sign, (!clone).Module);
         }
 
         public static explicit operator ForwardCode(AdditionalCode additional)
         {
             if (!additional.Sign)
-                return new ForwardCode(additional.Sign, additional.Number);
+                return new ForwardCode(additional.Sign, additional.Module);
 
             bool[] result = new bool[7];
-            additional.Number.Reverse().ToArray().CopyTo(result, 0);
+            additional.Module.Reverse().ToArray().CopyTo(result, 0);
 
             for (int i = 0; i < result.Length; ++i)
                 result[i] = !result[i];
@@ -555,7 +555,7 @@
         public static explicit operator sbyte(ForwardCode forward)
         {
             string binary = string.Empty;
-            foreach (bool bit in forward.number)
+            foreach (bool bit in forward.module)
                 binary += Convert.ToString(Convert.ToInt32(bit));
 
             return (sbyte)((forward.Sign) ? -Convert.ToSByte(binary, 2) : Convert.ToSByte(binary, 2));
@@ -570,10 +570,10 @@
         public override object Clone()
         {
             bool sign = this.sign;
-            bool[] number = new bool[7];
-            this.number.CopyTo(number, 0);
+            bool[] module = new bool[7];
+            this.module.CopyTo(module, 0);
 
-            return new ForwardCode(sign, number);
+            return new ForwardCode(sign, module);
         }
     }
 }
