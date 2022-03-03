@@ -5,7 +5,7 @@ Library for working with machine arithmetic on C# .NET Core.
 These instructions will get you a copy of the project or install dll for development.
 
 ### Installing
-For using this library in your project just download the [dll](https://github.com/neutroo/BinaryNumbers/releases/download/1.0.0/BinaryNumbers.zip).\
+For using this library in your project just download the [dll](https://github.com/Neutroo/BinaryNumbers/releases/download/1.0.0/BinaryNumbers-dll.zip).\
 If you don't know how to add dll in your project - check [this](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2022) documentation.
 
 For getting a copy of the project [click here](https://github.com/Neutroo/BinaryNumbers/archive/refs/heads/master.zip).
